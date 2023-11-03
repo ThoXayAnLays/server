@@ -1,3 +1,4 @@
+const e = require('express');
 const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema(
@@ -7,6 +8,7 @@ const productSchema = new mongoose.Schema(
         image1 :{ type: String, required: true },
         image2 :{ type: String, required: true },
         image3 :{ type: String, required: true },
+        size: {type: Enumerator, required: true, Enumerator: ['S', 'M', 'L', 'XL', 'XXL']},
         category: { type: String, required: true },
         price: { type: Number, required: true },
         countInStock: { type: Number, required: true },
