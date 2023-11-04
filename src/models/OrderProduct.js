@@ -4,6 +4,7 @@ const orderSchema = new mongoose.Schema({
     orderItems: [
         {
             name: { type: String, required: true },
+            sizeType: { type: String, required: true , enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
             amount: { type: Number, required: true },
             image: { type: String, required: true },
             price: { type: Number, required: true },

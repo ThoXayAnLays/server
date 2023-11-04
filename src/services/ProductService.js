@@ -56,7 +56,7 @@ const updateProduct = (id, data) => {
                     message: 'The product is not exist'
                 })
             }
-            if(isNaN(data.size.countInStock) || isNaN(data.price) || isNaN(data.discount)) {
+            if( isNaN(data.price) || isNaN(data.discount)) {
                 resolve({
                     status: 'Error',
                     message: 'The input is not a number'
