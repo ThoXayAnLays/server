@@ -4,8 +4,12 @@ const orderSchema = new mongoose.Schema({
     orderItems: [
         {
             name: { type: String, required: true },
-            sizeType: { type: String, required: true , enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
-            amount: { type: Number, required: true },
+            sizeXS: { type: Number , default: 0},
+            sizeS: { type: Number , default: 0},
+            sizeM: { type: Number , default: 0},
+            sizeL: { type: Number , default: 0},
+            sizeXL: { type: Number , default: 0},
+            sizeXXL: { type: Number , default: 0},
             image: { type: String, required: true },
             price: { type: Number, required: true },
             discount: { type: Number },

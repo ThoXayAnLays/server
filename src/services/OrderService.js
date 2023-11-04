@@ -22,13 +22,21 @@ const createOrder = (newOrder) => {
                 const productData = await Product.findOneAndUpdate(
                     {
                         _id: order.product,
-                        size: {
-                            $elemMatch: { sizeType: order.sizeType, countInStock: {$gte: order.amount}}
-                        }
+                        sizeXS: {$gte: order.sizeXS} || 0,
+                        sizeS: {$gte: order.sizeS} || 0,
+                        sizeM: {$gte: order.sizeM} || 0,
+                        sizeL: {$gte: order.sizeL} || 0,
+                        sizeXL: {$gte: order.sizeXL} || 0,
+                        sizeXXL: {$gte: order.sizeXXL} || 0,
                     },
                     {$inc: {
-                        'size.$.countInStock': -order.amount,
-                        selled: +order.amount
+                        sizeXS: -order.sizeXS,
+                        sizeS: -order.sizeS,
+                        sizeM: -order.sizeM,
+                        sizeL: -order.sizeL,
+                        sizeXL: -order.sizeXL,
+                        sizeXXL: -order.sizeXXL,
+                        selled: +order.sizeXS + +order.sizeS + +order.sizeM + +order.sizeL + +order.sizeXL + +order.sizeXXL
                     }},
                     {new: true}
                 )
@@ -67,7 +75,7 @@ const createOrder = (newOrder) => {
                     itemsPrice,
                     shippingPrice,
                     totalPrice,
-                    user: user,
+                    user: user, 
                     isPaid, paidAt
                 })
                 if (createdOrder) {
@@ -143,14 +151,22 @@ const cancelOrderDetails = (id, data) => {
                 const productData = await Product.findOneAndUpdate(
                     {
                         _id: order.product,
-                        selled: {$gte: order.amount},
-                        size: {
-                            $elemMatch: { sizeType: order.sizeType}
-                        }
+                        sizeXS: {$gte: order.sizeXS} || 0,
+                        sizeS: {$gte: order.sizeS} || 0,
+                        sizeM: {$gte: order.sizeM} || 0,
+                        sizeL: {$gte: order.sizeL} || 0,
+                        sizeXL: {$gte: order.sizeXL} || 0,
+                        sizeXXL: {$gte: order.sizeXXL} || 0,
+                        selled: {$gte: order.sizeXS + order.sizeS + order.sizeM + order.sizeL + order.sizeXL + order.sizeXXL} || 0,
                     },
                     {$inc: {
-                        'size.$.countInStock': +order.amount,
-                        selled: -order.amount
+                        sizeXS: +order.sizeXS,
+                        sizeS: +order.sizeS,
+                        sizeM: +order.sizeM,
+                        sizeL: +order.sizeL,
+                        sizeXL: +order.sizeXL,
+                        sizeXXL: +order.sizeXXL,
+                        selled: -order.sizeXS + -order.sizeS + -order.sizeM + -order.sizeL + -order.sizeXL + -order.sizeXXL
                     }},
                     {new: true}
                 )

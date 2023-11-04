@@ -2,7 +2,7 @@ const Product = require("../models/ProductModel")
 
 const createProduct = (newProduct) => {
     return new Promise(async (resolve, reject) => {
-        const { name, image, image1, image2, image3, size, category, price, description,discount } = newProduct
+        const { name, image, image1, image2, image3, sizeXS, sizeS, sizeM, sizeL, sizeXL, sizeXXL, category, price, description, discount } = newProduct
         try {
             const checkProduct = await Product.findOne({
                 name: name
@@ -13,7 +13,7 @@ const createProduct = (newProduct) => {
                     message: 'The name of product is already exist'
                 })
             }
-            if(isNaN(size.countInStock) || isNaN(price) || isNaN(discount)) {
+            if(isNaN(sizeXS) || isNaN(sizeS) || isNaN(sizeM) || isNaN(sizeL) || isNaN(sizeXL) || isNaN(sizeXXL) || isNaN(price) || isNaN(discount)) {
                 resolve({
                     status: 'ERR',
                     message: 'The input is not a number'
@@ -25,7 +25,12 @@ const createProduct = (newProduct) => {
                 image1,
                 image2,
                 image3,
-                size,
+                sizeXS: Number(sizeXS),
+                sizeS: Number(sizeS),
+                sizeM: Number(sizeM),
+                sizeL: Number(sizeL),
+                sizeXL: Number(sizeXL),
+                sizeXXL: Number(sizeXXL),
                 category,
                 price: Number(price),  
                 description,
