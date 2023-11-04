@@ -8,10 +8,15 @@ const productSchema = new mongoose.Schema(
         image1 :{ type: String, required: true },
         image2 :{ type: String, required: true },
         image3 :{ type: String, required: true },
-        size: {type: String, required: true, enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
+        size: [
+            {
+                sizeType: { type: String, required: true , enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
+                countInStock: { type: Number, required: true }
+            },
+        ],
         category: { type: String, required: true },
         price: { type: Number, required: true },
-        countInStock: { type: Number, required: true },
+        // countInStock: { type: Number, required: true },
         rating: { type: Number },
         description: { type: String },
         discount: { type: Number },
