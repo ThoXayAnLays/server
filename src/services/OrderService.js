@@ -11,7 +11,7 @@ const createOrder = (newOrder) => {
                 message: 'The orderItems is required'
             })
         }
-        if(!paymentMethod || !itemsPrice || !shippingPrice || !totalPrice || !fullName || !address || !city || !phone || !user || !isPaid || !email) {
+        if(!paymentMethod || !itemsPrice || !shippingPrice || !totalPrice || !fullName || !address || !city || !phone || !user || !email) {
             resolve({
                 status: 'Error',
                 message: 'The input is required'
