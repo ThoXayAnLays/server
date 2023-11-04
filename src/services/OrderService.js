@@ -20,9 +20,6 @@ const createOrder = (newOrder) => {
         try {
             const promises = orderItems.map(async (order) => {
                 const productData = await Product.findOneAndUpdate(
-                    //decrease countInStock in size and increase selled
-                    
-
                     {
                         _id: order.product,
                         size: {
@@ -147,9 +144,9 @@ const cancelOrderDetails = (id, data) => {
                 const productData = await Product.findOneAndUpdate(
                     {
                         _id: order.product,
-                        //selled: {$gte: order.amount},
+                        selled: {$gte: order.amount},
                         size: {
-                            $elemMatch: { sizeType: order.sizeType, countInStock: {$gte: order.amount}}
+                            $elemMatch: { sizeType: order.sizeType}
                         }
                     },
                     {$inc: {
