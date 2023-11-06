@@ -22,12 +22,12 @@ const createOrder = (newOrder) => {
                 const productData = await Product.findOneAndUpdate(
                     {
                         _id: order.product,
-                        sizeXS: {$gte: order.sizeXS} || 0,
-                        sizeS: {$gte: order.sizeS} || 0,
-                        sizeM: {$gte: order.sizeM} || 0,
-                        sizeL: {$gte: order.sizeL} || 0,
-                        sizeXL: {$gte: order.sizeXL} || 0,
-                        sizeXXL: {$gte: order.sizeXXL} || 0,
+                        sizeXS: {$gte: order.sizeXS} ,
+                        sizeS: {$gte: order.sizeS} ,
+                        sizeM: {$gte: order.sizeM} ,
+                        sizeL: {$gte: order.sizeL} ,
+                        sizeXL: {$gte: order.sizeXL} ,
+                        sizeXXL: {$gte: order.sizeXXL} ,
                     },
                     {$inc: {
                         sizeXS: -order.sizeXS,
