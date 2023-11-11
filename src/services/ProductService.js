@@ -9,16 +9,59 @@ const createProduct = (newProduct) => {
             })
             if (checkProduct !== null) {
                 resolve({
-                    status: 'ERR',
+                    status: 'Error',
                     message: 'The name of product is already exist'
                 })
             }
-            if(isNaN(sizeXS) || isNaN(sizeS) || isNaN(sizeM) || isNaN(sizeL) || isNaN(sizeXL) || isNaN(sizeXXL) || isNaN(price) || isNaN(discount)) {
+            if(isNaN(sizeXS)) {
                 resolve({
-                    status: 'ERR',
-                    message: 'The input is not a number'
+                    status: 'Error',
+                    message: 'sizeXS is not a number'
                 })
             }
+            if(isNaN(sizeS)) {
+                resolve({
+                    status: 'Error',
+                    message: 'sizeS is not a number'
+                })
+            }
+            if(isNaN(sizeM)) {
+                resolve({
+                    status: 'Error',
+                    message: 'sizeM is not a number'
+                })
+            }
+            if(isNaN(sizeL)) {
+                resolve({
+                    status: 'Error',
+                    message: 'sizeL is not a number'
+                })
+            }
+            if(isNaN(sizeXL)) {
+                resolve({
+                    status: 'Error',
+                    message: 'sizeXL is not a number'
+                })
+            }
+            if(isNaN(sizeXXL)) {
+                resolve({
+                    status: 'Error',
+                    message: 'sizeXXL is not a number'
+                })
+            }
+            if(isNaN(price)) {
+                resolve({
+                    status: 'Error',
+                    message: 'price is not a number'
+                })
+            }
+            if(isNaN(discount)) {
+                resolve({
+                    status: 'Error',
+                    message: 'discount is not a number'
+                })
+            }
+            
             const newProduct = await Product.create({
                 name, 
                 image, 
@@ -87,7 +130,7 @@ const deleteProduct = (id) => {
             })
             if (checkProduct === null) {
                 resolve({
-                    status: 'ERR',
+                    status: 'Error',
                     message: 'The product is not exist'
                 })
             }
