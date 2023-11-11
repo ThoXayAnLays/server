@@ -11,12 +11,67 @@ const createOrder = (newOrder) => {
                 message: 'The orderItems is required'
             })
         }
-        if(!paymentMethod || !itemsPrice || !shippingPrice || !totalPrice || !address || !city || !phone || !user || !email) {
+        if(!paymentMethod) {
             resolve({
                 status: 'Error',
-                message: 'The input is required'
+                message: 'The paymentMethod is required'
             })
         }
+        if(!itemsPrice){
+            resolve({
+                status: 'Error',
+                message: 'The itemsPrice is required'
+            })
+        }
+        if(!shippingPrice){
+            resolve({
+                status: 'Error',
+                message: 'The shippingPrice is required'
+            })
+        }
+        if(!totalPrice){
+            resolve({
+                status: 'Error',
+                message: 'The totalPrice is required'
+            })
+        }
+        if(!address){
+            resolve({
+                status: 'Error',
+                message: 'The address is required'
+            })
+        }
+        if(!city){
+            resolve({
+                status: 'Error',
+                message: 'The city is required'
+            })
+        }
+        if(!phone){
+            resolve({
+                status: 'Error',
+                message: 'The phone is required'
+            })
+        }
+        if(!user){
+            resolve({
+                status: 'Error',
+                message: 'The user is required'
+            })
+        }
+        if(!isPaid){
+            resolve({
+                status: 'Error',
+                message: 'The isPaid is required'
+            })
+        }
+        if(!email){
+            resolve({
+                status: 'Error',
+                message: 'The email is required'
+            })
+        }
+
         try {
             const promises = orderItems.map(async (order) => {
                 const productData = await Product.findOneAndUpdate(
