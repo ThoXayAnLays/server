@@ -4,7 +4,7 @@ const EmailService = require("../services/EmailService")
 
 const createOrder = (newOrder) => {
     return new Promise(async (resolve, reject) => {
-        const { orderItems,paymentMethod, itemsPrice, shippingPrice, totalPrice, address, city, phone, fullname, user, isPaid, paidAt, email } = newOrder
+        const { orderItems,paymentMethod, itemsPrice, shippingPrice, totalPrice, address, city, phone, fullName, user, isPaid, paidAt, email } = newOrder
         if(!orderItems){
             resolve({
                 status: 'Error',
@@ -53,10 +53,10 @@ const createOrder = (newOrder) => {
                 message: 'The phone is required'
             })
         }
-        if(!fullname){
+        if(!fullName){
             resolve({
                 status: 'Error',
-                message: 'The fullname is required'
+                message: 'The fullName is required'
             })
         }
         if(!user){
@@ -132,7 +132,7 @@ const createOrder = (newOrder) => {
                         address,
                         city, 
                         phone,
-                        fullname
+                        fullName
                     },
                     paymentMethod,
                     itemsPrice,
