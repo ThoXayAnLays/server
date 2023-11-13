@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config()
 var inlineBase64 = require('nodemailer-plugin-inline-base64');
 
-const sendEmailCreateOrder = async (email,orderItems) => {
+const sendEmailCreateOrder = async (email, orderItems, shippingPrice, totalPrice) => {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -18,15 +18,52 @@ const sendEmailCreateOrder = async (email,orderItems) => {
   let listItem = '';
   const attachImage = []
   orderItems.forEach((order) => {
-    listItem += `<div>
-    <div>
-      You order product: <b>${order.name}</b> with quantity: <b>${order.amount}</b>. 
-      Shipping price: <b>${order.shippingPrice} VND</b>.
-      Total price: <b>${order.totalPrice} VND</b></div>.
-      <div>Product Img:</div>
-    </div>`
+    if(order.sizeXS !== 0) {
+      listItem += `<div>
+      <div>
+        You order product: <b>${order.name}</b> with ${order.sizeXS} size XS and price: <b>${order.price * order.sizeXS} VND</b>
+      </div> 
+      </div>`
+    }
+    if(order.sizeS !== 0) {
+      listItem += `<div>
+      <div>
+        You order product: <b>${order.name}</b> with ${order.sizeS} size S and price: <b>${order.price * order.sizeS} VND</b>
+      </div> 
+      </div>`
+    }
+    if(order.sizeM !== 0) {
+      listItem += `<div>
+      <div>
+        You order product: <b>${order.name}</b> with ${order.sizeM} size M and price: <b>${order.price * order.sizeM} VND</b>
+      </div> 
+      </div>`
+    }
+    if(order.sizeL !== 0) {
+      listItem += `<div>
+      <div>
+        You order product: <b>${order.name}</b> with ${order.sizeL} size L and price: <b>${order.price * order.sizeL} VND</b>
+      </div> 
+      </div>`
+    }
+    if(order.sizeXL !== 0) {
+      listItem += `<div>
+      <div>
+        You order product: <b>${order.name}</b> with ${order.sizeXL} size XL and price: <b>${order.price * order.sizeXL} VND</b>
+      </div> 
+      </div>`
+    }
+    if(order.sizeXXL !== 0) {
+      listItem += `<div>
+      <div>
+        You order product: <b>${order.name}</b> with ${order.sizeXXL} size XXL and price: <b>${order.price * order.sizeXXL} VND</b>
+      </div> 
+      </div>`
+    }
+    
     attachImage.push({path: order.image})
   })
+  let priceInfo = ` <div> Your shipping fee is: <b>${shippingPrice}</b> and total price is: <b>${totalPrice}</b></div>`;
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
@@ -34,7 +71,7 @@ const sendEmailCreateOrder = async (email,orderItems) => {
     to: email, // list of receivers
     subject: "Football Shop Order", // Subject line
     text: "Thank for orders our product", // plain text body
-    html: `<div><b>Order Successfully!!!</b></div> ${listItem}`,
+    html: `<div><b>Order Successfully!!!</b></div> ${listItem} <div> ${priceInfo} </div>`,
     attachments: attachImage,
   });
 }

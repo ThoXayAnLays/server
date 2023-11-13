@@ -4,7 +4,7 @@ const EmailService = require("../services/EmailService")
 
 const createOrder = (newOrder) => {
     return new Promise(async (resolve, reject) => {
-        const { orderItems,paymentMethod, itemsPrice, shippingPrice, totalPrice, address, city, phone, fullName, user, isPaid, paidAt, email } = newOrder
+        const { orderItems, paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone, user, isPaid, paidAt, email } = newOrder
         if(!orderItems){
             resolve({
                 status: 'Error',
@@ -65,12 +65,6 @@ const createOrder = (newOrder) => {
                 message: 'The user is required'
             })
         }
-        if(!isPaid){
-            resolve({
-                status: 'Error',
-                message: 'The isPaid is required'
-            })
-        }
         if(!email){
             resolve({
                 status: 'Error',
@@ -129,10 +123,10 @@ const createOrder = (newOrder) => {
                 const createdOrder = await Order.create({
                     orderItems,
                     shippingAddress: {
+                        fullName,
                         address,
                         city, 
-                        phone,
-                        fullName
+                        phone
                     },
                     paymentMethod,
                     itemsPrice,
@@ -142,11 +136,19 @@ const createOrder = (newOrder) => {
                     isPaid, paidAt
                 })
                 if (createdOrder) {
-                    await EmailService.sendEmailCreateOrder(email,orderItems)
-                    resolve({
-                        status: 'OK',
-                        message: 'Order and Send Email Success',
-                    })
+                    try{
+                        await EmailService.sendEmailCreateOrder(email, orderItems, shippingPrice, totalPrice)
+                        resolve({
+                            status: 'OK',
+                            message: 'Order and Send Email Success',
+                        })
+                    }catch(e){
+                        resolve({
+                            status: 'Error',
+                            message: 'Send email Failed',
+                        })
+                    }
+                    
                 }
             }
         } catch (e) {

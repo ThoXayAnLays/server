@@ -2,7 +2,7 @@ const OrderService = require('../services/OrderService')
 
 const createOrder = async (req, res) => {
     try { 
-        const { paymentMethod, itemsPrice, shippingPrice, totalPrice, address, city, phone, fullName } = req.body
+        const { paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone} = req.body
         if (!paymentMethod) {
             return res.status(400).json({
                 status: 'Error',
@@ -55,8 +55,8 @@ const createOrder = async (req, res) => {
         const response = await OrderService.createOrder(req.body)
         return res.status(200).json(response)
     } catch (e) {
-        return res.status(404).json({
-            message: e
+        return res.status(400).json({
+            message: "Can't create order"
         })
     }
 }
