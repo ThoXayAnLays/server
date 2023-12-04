@@ -7,6 +7,36 @@ const createProduct = (newProduct) => {
             const checkProduct = await Product.findOne({
                 name: name
             })
+            if (!name) {
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'The name is required'
+                })
+            }
+            if(!image){
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'The image is required'
+                })
+            }
+            if(!category){
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'The category is required'
+                })
+            }
+            if(!price){
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'The price is required'
+                })
+            }
+            if(!description){
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'The description is required'
+                })
+            }
             if (checkProduct !== null) {
                 resolve({
                     status: 'Error',
