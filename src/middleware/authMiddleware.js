@@ -7,7 +7,7 @@ const authMiddleWare = (req, res, next) => {
     jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {
         if (err) {
             return res.status(404).json({
-                message: 'Your are not authorized',
+                message: 'Your are not authorized c',
                 status: 'Error'
             })
         }
